@@ -28,6 +28,7 @@ public class GameTest {
         assertEquals(1,bowlingGame.score());
     }
 
+    @Test
     public void testGutterGame(){
         for(int i=0; i<20; i++){
             bowlingGame.roll(0);
@@ -35,26 +36,46 @@ public class GameTest {
         assertEquals(0,bowlingGame.score());
     }
 
+    @Test
     public void testScoreFirstFrameNoBonuses(){
         bowlingGame.roll(1);
         bowlingGame.roll(2);
         bowlingGame.roll(3);
-        assertEquals(3,bowlingGame.scoreFrame(1));
+        assertEquals(3,bowlingGame.scoreFrame(0));
     }
 
-    public void testScoreFirstFrameNoBonuses2(){
-        bowlingGame.roll(9);
-        bowlingGame.roll(0);
-        bowlingGame.roll(3);
-        assertEquals(9,bowlingGame.scoreFrame(1));
-    }
-
+    @Test
     public void testScoreFirstFrameSpare(){
         bowlingGame.roll(9);
         bowlingGame.roll(1);
         bowlingGame.roll(1);
+        assertEquals(11,bowlingGame.scoreFrame(0));
+    }
+    
+    @Test
+    public void testScoreFrameTwo(){
+        bowlingGame.roll(1);
+        bowlingGame.roll(2);
+        bowlingGame.roll(3);
+        bowlingGame.roll(4);
+        assertEquals(7,bowlingGame.scoreFrame(1));
+    }
+    
+    @Test
+    public void testSpareInFrameTwo(){
+        bowlingGame.roll(0);
+        bowlingGame.roll(0);
+        //TODO make rollSpare test helper?
+        bowlingGame.roll(5);
+        bowlingGame.roll(5);
+        bowlingGame.roll(1);
         assertEquals(11,bowlingGame.scoreFrame(1));
     }
-
-// test combining 2 frames
+    
+    @Test
+    public void testIncompleteSpare(){
+    	  bowlingGame.roll(5);
+          bowlingGame.roll(5);
+          assertEquals(10,bowlingGame.scoreFrame(0));
+    }
 }
